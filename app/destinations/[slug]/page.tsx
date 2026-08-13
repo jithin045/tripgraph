@@ -244,7 +244,9 @@ export default async function DestinationPage ({ params }: PageProps) {
                   >
                     <div className='flex items-center justify-between'>
                       <div>
-                        <p className='text-xs text-slate-500'>CONNECTED_TO</p>
+                        <p className='text-xs text-slate-500'>
+                          NEARBY DESTINATION
+                        </p>
 
                         <span className='mt-1 block font-medium'>
                           {connected.name}
@@ -265,42 +267,30 @@ export default async function DestinationPage ({ params }: PageProps) {
         </section>
 
         {/* Relationship overview */}
-        <section className='mt-8 rounded-3xl border border-white/10 bg-white/[0.02] p-8'>
-          <div className='text-center'>
-            <p className='text-sm font-medium uppercase tracking-[0.2em] text-cyan-400'>
-              Graph relationships
-            </p>
+        <div className='mt-8 flex flex-wrap items-center justify-center gap-3 text-sm'>
+          <GraphNode label={destination.name} type='Destination' active />
 
-            <h2 className='mt-3 text-2xl font-semibold'>
-              How {destination.name} fits into the graph
-            </h2>
-          </div>
+          <GraphArrow label='Attractions' />
 
-          <div className='mt-8 flex flex-wrap items-center justify-center gap-3 text-sm'>
-            <GraphNode label={destination.name} type='Destination' active />
+          <GraphNode
+            label={`${destination.attractions.length} attractions`}
+            type='Attraction'
+          />
 
-            <GraphArrow label='HAS_ATTRACTION' />
+          <GraphArrow label='Activities' />
 
-            <GraphNode
-              label={`${destination.attractions.length} attractions`}
-              type='Attraction'
-            />
+          <GraphNode
+            label={`${activities.length} activities`}
+            type='Activity'
+          />
 
-            <GraphArrow label='OFFERS' />
+          <GraphArrow label='Nearby destinations' />
 
-            <GraphNode
-              label={`${activities.length} activities`}
-              type='Activity'
-            />
-
-            <GraphArrow label='CONNECTED_TO' />
-
-            <GraphNode
-              label={`${destination.connectedDestinations.length} destinations`}
-              type='Destination'
-            />
-          </div>
-        </section>
+          <GraphNode
+            label={`${destination.connectedDestinations.length} destinations`}
+            type='Destination'
+          />
+        </div>
 
         {/* Graph CTA */}
         <section className='mt-8 rounded-3xl border border-cyan-400/20 bg-cyan-400/[0.04] p-8 sm:p-10'>
