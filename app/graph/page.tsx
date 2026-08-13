@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import GraphPageClient from "@/components/GraphPageClient";
 
 export default function GraphPage() {
@@ -38,7 +39,21 @@ export default function GraphPage() {
           </p>
         </div>
 
-        <GraphPageClient />
+        <Suspense
+          fallback={
+            <div className="flex h-[650px] items-center justify-center rounded-3xl border border-white/10 bg-slate-950">
+              <div className="text-center">
+                <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-slate-700 border-t-cyan-400" />
+
+                <p className="mt-4 text-sm text-slate-400">
+                  Loading graph...
+                </p>
+              </div>
+            </div>
+          }
+        >
+          <GraphPageClient />
+        </Suspense>
       </div>
     </main>
   );
