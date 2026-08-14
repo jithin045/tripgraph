@@ -58,6 +58,7 @@ Destination
 │
 └── CONNECTED_TO ──→ 
 
+
 How to Run Locally
 
 The live application can be tested directly using the Live Demo above. Local setup is optional and is mainly useful for development or reviewing the source code.
@@ -65,7 +66,7 @@ The live application can be tested directly using the Live Demo above. Local set
 Prerequisites
 Node.js 18+
 npm
-Neo4j database
+CognoDB database
 1. Clone the Repository
 git clone https://github.com/jithin045/tripgraph.git
 cd tripgraph
@@ -73,19 +74,15 @@ cd tripgraph
 npm install
 3. Configure Environment Variables
 
-Create a .env.local file in the project root:
+Create a .env.local file in the project root.
 
-NEO4J_URI=your_neo4j_uri
-NEO4J_USERNAME=your_neo4j_username
-NEO4J_PASSWORD=your_neo4j_password
+Add the following variables:
 
-Replace these values with the connection details of your Neo4j database.
+COGNODB_URI=your_cognodb_uri
+COGNODB_USERNAME=your_cognodb_username
+COGNODB_PASSWORD=your_cognodb_password
 
-For example:
-
-NEO4J_URI=neo4j+s://your-database.databases.neo4j.io
-NEO4J_USERNAME=neo4j
-NEO4J_PASSWORD=your_password
+Replace the values with the connection details of your CognoDB database.
 
 Do not commit .env.local or database credentials to the repository.
 
@@ -109,21 +106,21 @@ API
 
 TripGraph uses a Next.js API route to retrieve graph data for the interactive graph explorer.
 
-Example:
+Example endpoint:
 
 GET /api/graph/[slug]
 
-For example:
+Example:
 
 GET /api/graph/munnar
 
-The API returns the graph nodes and relationships required by the graph visualization.
+The API returns the graph nodes and relationships required by the interactive graph visualization.
 
 Graph Visualization
 
 The interactive graph is implemented using React Flow for rendering the graph and Dagre for automatically arranging the nodes in a hierarchical layout.
 
-The database relationship names are mapped to user-friendly labels in the interface:
+Database relationship names are mapped to user-friendly labels in the interface:
 
 HAS_ATTRACTION → Attractions
 HAS_RESTAURANT → Restaurants
