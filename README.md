@@ -1,36 +1,138 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TripGraph
 
-## Getting Started
+TripGraph is a graph-powered travel discovery application built to demonstrate how travel information can be modeled and explored through relationships.
 
-First, run the development server:
+Instead of treating destinations, attractions, activities, restaurants, and nearby destinations as isolated records, TripGraph represents them as connected entities using a graph database.
 
-```bash
+The application provides a simple travel interface along with an interactive graph explorer that allows users to understand how different travel entities are connected.
+
+## Live Demo
+
+https://tripgraph-am16.vercel.app/
+
+## Overview
+
+Traditional travel applications generally organize information into separate lists such as destinations, attractions, restaurants, and activities.
+
+TripGraph takes a different approach by modeling these entities as a connected graph.
+
+For example, a destination can have multiple attractions, attractions can offer activities, restaurants can belong to destinations, and destinations can be connected to other destinations.
+
+This makes it possible to explore travel information through relationships and multi-hop connections.
+
+## Features
+
+- Browse Kerala destinations
+- View detailed destination information
+- Explore destination attractions
+- Discover activities available through attractions
+- View restaurants associated with destinations
+- Navigate between connected destinations
+- Interactive graph visualization
+- Hierarchical graph layout
+- Relationship labels with user-friendly descriptions
+- Destination and attraction images
+- Responsive dark-themed interface
+- Dynamic destination pages
+- Graph data retrieved from Neo4j
+- Deployed on Vercel
+
+## Graph Model
+
+TripGraph uses a graph-based model to represent travel information.
+
+The main entities are:
+
+- Destination
+- Attraction
+- Activity
+- Restaurant
+
+The relationships between these entities are:
+
+Destination
+├── HAS_ATTRACTION ──→ Attraction
+│                         └── OFFERS ──→ Activity
+│
+├── HAS_RESTAURANT ──→ Restaurant
+│
+└── CONNECTED_TO ──→ 
+
+How to Run Locally
+
+The live application can be tested directly using the Live Demo above. Local setup is optional and is mainly useful for development or reviewing the source code.
+
+Prerequisites
+Node.js 18+
+npm
+Neo4j database
+1. Clone the Repository
+git clone https://github.com/jithin045/tripgraph.git
+cd tripgraph
+2. Install Dependencies
+npm install
+3. Configure Environment Variables
+
+Create a .env.local file in the project root:
+
+NEO4J_URI=your_neo4j_uri
+NEO4J_USERNAME=your_neo4j_username
+NEO4J_PASSWORD=your_neo4j_password
+
+Replace these values with the connection details of your Neo4j database.
+
+For example:
+
+NEO4J_URI=neo4j+s://your-database.databases.neo4j.io
+NEO4J_USERNAME=neo4j
+NEO4J_PASSWORD=your_password
+
+Do not commit .env.local or database credentials to the repository.
+
+4. Run the Development Server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+5. Production Build
 
-## Learn More
+To create a production build:
 
-To learn more about Next.js, take a look at the following resources:
+npm run build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To run the production build locally:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+npm start
+API
 
-## Deploy on Vercel
+TripGraph uses a Next.js API route to retrieve graph data for the interactive graph explorer.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Example:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+GET /api/graph/[slug]
+
+For example:
+
+GET /api/graph/munnar
+
+The API returns the graph nodes and relationships required by the graph visualization.
+
+Graph Visualization
+
+The interactive graph is implemented using React Flow for rendering the graph and Dagre for automatically arranging the nodes in a hierarchical layout.
+
+The database relationship names are mapped to user-friendly labels in the interface:
+
+HAS_ATTRACTION → Attractions
+HAS_RESTAURANT → Restaurants
+OFFERS → Activities
+CONNECTED_TO → Nearby destinations
+Deployment
+
+TripGraph is deployed using Vercel.
+
+Live application:
+
+https://tripgraph-am16.vercel.app/
