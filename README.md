@@ -133,3 +133,23 @@ TripGraph is deployed using Vercel.
 Live application:
 
 https://tripgraph-am16.vercel.app/
+
+## Screenshots
+
+### Home
+
+The home page provides an entry point to explore destinations and the graph.
+
+![TripGraph Home](screenshots/home.png)
+
+### Destination
+
+The destination page presents attractions, activities, and connected travel information.
+
+![Destination Page](screenshots/destination.png)
+
+### Graph Explorer
+
+The graph explorer visualizes destinations, attractions, activities, and their relationships using React Flow and Dagre.
+
+![Graph Explorer](screenshots/graph.png)
